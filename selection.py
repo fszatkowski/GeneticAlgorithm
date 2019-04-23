@@ -13,8 +13,7 @@ class Tournament:
         self.fitness_function = fitness_function
 
     def run(self, population):
-        selected = {}
-        size = len(population)
+        size, selected = len(population), {}
 
         # do len(population) tournaments to determine new population
         for i in range(0, size):

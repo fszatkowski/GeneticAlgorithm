@@ -7,7 +7,7 @@ import mutation
 class GeneticAlgorithm:
     def __init__(
         self,
-        encoding=None,
+        variables=None,
         fitness_function=None,
         initialization_type=None,
         population_size=100,
@@ -16,10 +16,10 @@ class GeneticAlgorithm:
         crossover_type=None,
         crossover_probability=1.0,
         mutation_type=None,
-        mutation_probability=0.01
+        mutation_probability=0.01,
     ):
         # we need the type of individual
-        self.encoding = encoding
+        self.variables = variables
 
         # fitness function takes an individual and returns one number
         # it has to be defined
@@ -27,7 +27,7 @@ class GeneticAlgorithm:
 
         # initialization function returns indivduals
         if initialization_type == "uniform":
-            self.initializer = initialization.Uniform(self.encoding)
+            self.initializer = initialization.Uniform(self.variables)
         self.population_size = population_size
 
         # selection function returns list pairs of individuals selected for mating
@@ -51,8 +51,8 @@ class GeneticAlgorithm:
             crossed_pop = self.crossover.run(selected_population)
             mutated_pop = self.mutation.run(crossed_pop)
             population = mutated_pop
-            progress = i/iterations
-            if progress>perc/20:
+            progress = i / iterations
+            if progress > perc / 20:
                 print(f"{perc*5}% done!")
                 perc += 1
 
@@ -68,17 +68,16 @@ class GeneticAlgorithm:
         )
 
 
-# lets try Himmelblau's function and restrict it's search space
+# lets try Himmelblau's function with restricted search space
 def fitness_function(individual):
-    x = individual.fenotype()["x"]
-    y = individual.fenotype()["y"]
+    x, y = individual.fenotype()["x"], individual.fenotype()["y"]
     return pow(x * x + y - 11, 2) + pow(x + y * y - 7, 2)
 
 
-encoding = {"x": (-5, 5), "y": (-5, 5)}
+variables = {"x": (-1250, 1250), "y": (-1250, 1250)}
 
 ga = GeneticAlgorithm(
-    encoding=encoding,
+    variables=variables,
     fitness_function=fitness_function,
     initialization_type="uniform",
     population_size=1000,
@@ -87,6 +86,6 @@ ga = GeneticAlgorithm(
     crossover_type="one_point",
     crossover_probability=0.8,
     mutation_type="one_point",
-    mutation_probability=0.01
+    mutation_probability=0.01,
 )
 ga.run(200)

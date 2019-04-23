@@ -14,7 +14,7 @@ class Uniform:
         self.encoding = encoding
 
     def run(self, population_size):
-        new_population = dict()
+        new_population = {}
         for i in range(0, population_size):
             new_population[i] = Individual(
                 {

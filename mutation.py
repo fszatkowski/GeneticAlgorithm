@@ -10,8 +10,8 @@ class OnePoint:
         if self.mutation_probability == 0.00:
             return population
 
-        mutated_population = []
-        for i in range(0, len(population)):
+        mutated_population, size = {}, len(population)
+        for i in range(0, size):
             new_individual = {}
             for key, value in population[i].genotype().items():
                 new_value = ""
@@ -23,5 +23,5 @@ class OnePoint:
                         new_value = new_value + char
                 new_individual[key] = new_value
             new_individual = individual.Individual(new_individual)
-            mutated_population.append(new_individual)
+            mutated_population[i] = new_individual
         return mutated_population
