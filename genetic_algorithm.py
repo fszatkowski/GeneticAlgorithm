@@ -1,18 +1,7 @@
-"""
-TODO:
--f. celu
--osobnik
--inicjalizacja
--kalkulacja funkcji celu
--selekcja
--crossover
--mutacja
--ewaluacja
-"""
-
 import initialization
 import selection
 import crossover
+import mutation
 
 
 class GeneticAlgorithm:
@@ -26,7 +15,8 @@ class GeneticAlgorithm:
         tournament_size=20,
         crossover_type=None,
         crossover_probability=1.0,
-        mutation=None,
+        mutation_type=None,
+        mutation_probability=0.01
     ):
         # we need the type of individual
         self.encoding = encoding
@@ -47,10 +37,11 @@ class GeneticAlgorithm:
             )
 
         # crossover function has its own probablity, takes two old indivduals and returns two new individuals
-        if crossover_type == "1p":
+        if crossover_type == "one_point":
             self.crossover = crossover.OnePoint(crossover_probability)
 
-        self.mutation = mutation
+        if mutation_type == "one_point":
+            self.mutation = mutation.OnePoint(mutation_probability)
 
     def run(self, iterations=100):
         population = self.initializer.run(self.population_size)
@@ -58,10 +49,11 @@ class GeneticAlgorithm:
         for i in range(0, iterations):
             selected_population = self.selection.run(population)
             crossed_pop = self.crossover.run(selected_population)
-            population = crossed_pop
+            mutated_pop = self.mutation.run(crossed_pop)
+            population = mutated_pop
             progress = i/iterations
-            if progress>perc/10:
-                print(f"{perc*10}% done!")
+            if progress>perc/20:
+                print(f"{perc*5}% done!")
                 perc += 1
 
         best_individual = 0
@@ -89,10 +81,12 @@ ga = GeneticAlgorithm(
     encoding=encoding,
     fitness_function=fitness_function,
     initialization_type="uniform",
-    population_size=200,
+    population_size=1000,
     selection_type="tournament",
     tournament_size=50,
-    crossover_type="1p",
-    crossover_probability=0.8
+    crossover_type="one_point",
+    crossover_probability=0.8,
+    mutation_type="one_point",
+    mutation_probability=0.01
 )
 ga.run(200)
