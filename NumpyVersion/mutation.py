@@ -18,7 +18,6 @@ class UniformMutation:
 
 if __name__ == "__main__":
     test = np.random.randint(2, size=(100, 100), dtype="I")
-
     um = UniformMutation(0.1)
     m = um.mutate(test)
 

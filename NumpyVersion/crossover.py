@@ -20,18 +20,24 @@ class OnePoint:
                     point = np.random.randint(vb[0], vb[1] + 1)
                     # for every value perform crossover
                     # join two parts of genes representing a value coming from two genotypes from selected population
-                    crossed_population[2 * n, vb[0] : vb[1]] = np.reshape(np.concatenate(
-                        (
-                            population[2 * n, vb[0] : point],
-                            population[2 * n + 1, point : vb[1]],
+                    crossed_population[2 * n, vb[0] : vb[1]] = np.reshape(
+                        np.concatenate(
+                            (
+                                population[2 * n, vb[0] : point],
+                                population[2 * n + 1, point : vb[1]],
+                            )
                         ),
-                    ), (1,-1))
-                    crossed_population[2 * n + 1, vb[0] : vb[1]] = np.reshape(np.concatenate(
-                        (
-                            population[2 * n + 1, vb[0] : point],
-                            population[2 * n, point : vb[1]],
+                        (1, -1),
+                    )
+                    crossed_population[2 * n + 1, vb[0] : vb[1]] = np.reshape(
+                        np.concatenate(
+                            (
+                                population[2 * n + 1, vb[0] : point],
+                                population[2 * n, point : vb[1]],
+                            )
                         ),
-                    ),(1,-1))
+                        (1, -1),
+                    )
             else:
                 # if crossover is not performed, copy original values
                 crossed_population[2 * n : 2 * n + 1, :] = population[

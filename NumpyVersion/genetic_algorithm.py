@@ -4,16 +4,16 @@ variables passed as OrderedDict: {key:(bits, min_val, max_val)}
 functions argument order must match dicts argument order
 """
 
-from NumpyVersion.initialization import Uniform
-from NumpyVersion.fitness_function import FitnessFunction
-from NumpyVersion.fitness_function import x_square
-from NumpyVersion.fitness_function import himmelblau
-from NumpyVersion.selection import Tournament
-from NumpyVersion.crossover import OnePoint
-from NumpyVersion.mutation import UniformMutation
 from collections import OrderedDict
 from time import time
+
 import numpy as np
+
+from NumpyVersion.crossover import OnePoint
+from NumpyVersion.fitness_function import FitnessFunction, himmelblau, x_square
+from NumpyVersion.initialization import Uniform
+from NumpyVersion.mutation import UniformMutation
+from NumpyVersion.selection import Tournament
 
 
 class GeneticAlgorithm:
@@ -59,7 +59,7 @@ class GeneticAlgorithm:
             self._trace[i] = {
                 "values": self._fitness.best_genotype(population)[2],
                 "fitness": self._fitness.best_genotype(population)[0],
-                "avg_fitness": fitness.mean()
+                "avg_fitness": fitness.mean(),
             }
 
         result = self._trace[0]

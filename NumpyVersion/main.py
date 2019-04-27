@@ -26,5 +26,5 @@ print(results)
 
 x, y = ga.avg_value_history()
 y = np.log(y)
-plt.plot(x,y)
+plt.plot(x, y)
 plt.show()

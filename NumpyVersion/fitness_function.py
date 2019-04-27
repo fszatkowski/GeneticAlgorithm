@@ -1,5 +1,6 @@
-import numpy as np
 from collections import OrderedDict
+
+import numpy as np
 
 
 def chromosomes_to_value(chromosomes, first_bit, last_bit, min_value, max_value):
@@ -66,4 +67,4 @@ if __name__ == "__main__":
     assert np.array_equal(fitness, encoded_values)
 
     assert x_square({"x": 2}) == 4
-    assert himmelblau({"x":3,"y":2}) == 0
+    assert himmelblau({"x": 3, "y": 2}) == 0
