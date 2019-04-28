@@ -1,4 +1,4 @@
-from StringVersion import mutation, selection, crossover, initialization
+from old_version import crossover, initialization, mutation, selection
 
 
 class GeneticAlgorithm:

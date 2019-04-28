@@ -1,5 +1,6 @@
-from StringVersion import individual
 import random
+
+from old_version import individual
 
 
 class OnePoint:

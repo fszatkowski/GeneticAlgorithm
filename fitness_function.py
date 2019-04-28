@@ -62,60 +62,9 @@ if __name__ == "__main__":
     test = np.random.randint(2, size=(100, 10), dtype="I")
 
     ff = FitnessFunction({"x": (10, -5, 5)}, lambda v: v["x"])
-    fitness = ff.calculate_fitness(test)
+    fitness_values = ff.calculate_fitness(test)
     encoded_values = chromosomes_to_value(test, 0, 10, -5, 5)
 
-    test = np.array(
-        [
-            0,
-            0,
-            0,
-            0,
-            0,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            0,
-            1,
-            1,
-            0,
-            0,
-            0,
-            1,
-            0,
-            1,
-            0,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            1,
-            0,
-            1,
-            0,
-            1,
-            0,
-            1,
-            0,
-            0,
-            1,
-            1,
-            1,
-            1,
-        ]
-    )
-    test = np.reshape(test, (1,40))
-
-    print(chromosomes_to_value(test, 0,20,-5,5))
-    print(chromosomes_to_value(test, 20,40,-5,5))
-    print(himmelblau({"x": chromosomes_to_value(test, 0,20,-5,5), "y": chromosomes_to_value(test, 20,40,-5,5)}))
-
-    assert np.array_equal(fitness, encoded_values)
-
+    assert np.array_equal(fitness_values, encoded_values)
     assert x_square({"x": 2}) == 4
     assert himmelblau({"x": 3, "y": 2}) == 0

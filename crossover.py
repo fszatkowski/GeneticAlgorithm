@@ -17,31 +17,27 @@ class OnePoint:
             if np.random.random() <= self._probability:
                 for vb in self._value_bites:
                     # for every value find crossover point
-                    point = np.random.randint(vb[0]+1, vb[1])
+                    point = np.random.randint(vb[0] + 1, vb[1])
                     # for every value perform crossover
                     # join two parts of genes representing a value coming from two genotypes from selected population
-                    p11 = population[2 * n, vb[0] : point]
-                    p12 = population[2 * n + 1, point : vb[1]]
-                    new1 = np.reshape(
+                    crossed_population[2 * n, vb[0] : vb[1]] = np.reshape(
                         np.concatenate(
                             (
-                                p11,p12
+                                population[2 * n, vb[0] : point],
+                                population[2 * n + 1, point : vb[1]],
                             )
                         ),
                         (1, -1),
                     )
-                    p21 = population[2 * n + 1, vb[0] : point]
-                    p22 = population[2 * n, point : vb[1]]
-                    new2 = np.reshape(
+                    crossed_population[2 * n + 1, vb[0] : vb[1]] = np.reshape(
                         np.concatenate(
                             (
-                                p21, p22
+                                population[2 * n + 1, vb[0] : point],
+                                population[2 * n, point : vb[1]],
                             )
                         ),
                         (1, -1),
                     )
-                    crossed_population[2 * n, vb[0]: vb[1]] = new1
-                    crossed_population[2 * n + 1, vb[0]: vb[1]] = new2
         return crossed_population
 
 

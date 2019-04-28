@@ -9,11 +9,11 @@ from time import time
 
 import numpy as np
 
-from NumpyVersion.crossover import OnePoint
-from NumpyVersion.fitness_function import FitnessFunction, himmelblau, x_square
-from NumpyVersion.initialization import Uniform
-from NumpyVersion.mutation import UniformMutation
-from NumpyVersion.selection import Tournament
+from crossover import OnePoint
+from fitness_function import FitnessFunction, himmelblau, x_square
+from initialization import Uniform
+from mutation import UniformMutation
+from selection import Tournament
 
 
 class GeneticAlgorithm:
@@ -64,7 +64,7 @@ class GeneticAlgorithm:
                 "fitness": self._fitness.best_genotype(population)[0],
                 "avg_fitness": fitness.mean(),
             }
-            if 10*i%iterations == 0:
+            if 10 * i % iterations == 0:
                 print(f"{100*(i+10)/iterations}% done!")
 
         result = self._trace[0]

@@ -1,7 +1,7 @@
 import random
 
-from StringVersion.individual import Individual
-from StringVersion.individual import float_to_bin
+from old_version.individual import Individual, float_to_bin
+
 
 """
 __init__ takes encoding in form: 'x':(min, max)

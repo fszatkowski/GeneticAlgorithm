@@ -1,8 +1,8 @@
-from NumpyVersion.genetic_algorithm import GeneticAlgorithm
+from genetic_algorithm import GeneticAlgorithm
 import matplotlib.pyplot as plt
 import numpy as np
 from collections import OrderedDict
-from NumpyVersion.fitness_function import himmelblau
+from fitness_function import himmelblau
 
 """
 TODO:
