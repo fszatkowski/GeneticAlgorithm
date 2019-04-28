@@ -14,17 +14,23 @@ h_encoding = OrderedDict({"x": (20, -5, 5), "y": (20, -5, 5)})
 ga = GeneticAlgorithm(
     h_encoding,
     himmelblau,
-    2000,
+    1000,
     40,
-    tournament_size=2,
+    tournament_size=100,
     crossover_probability=0.8,
-    mutation_probability=0,
+    mutation_probability=0.05,
 )
 results = ga.run(100)
 
-print(results)
+print(f"Best fitness: {results['fitness']} for values: {results['values']}")
 
 x, y = ga.avg_value_history()
-y = np.log(y)
 plt.plot(x, y)
+plt.title("Mean value from all population")
+plt.show()
+
+x, y = ga.best_value_history()
+y = np.log10(y)
+plt.plot(x,y)
+plt.title("Log10(best value)")
 plt.show()

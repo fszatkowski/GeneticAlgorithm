@@ -24,7 +24,7 @@ class GeneticAlgorithm:
         population_size,
         chromosome_length,
         tournament_size=1,
-        crossover_probability=0.8,
+        crossover_probability=1,
         mutation_probability=0.01,
     ):
         bit_sum = 0
@@ -50,6 +50,9 @@ class GeneticAlgorithm:
     def run(self, iterations=100):
         population = self._initializer.initialize_population()
 
+        print("Starting")
+        t1 = time()
+
         for i in range(0, iterations):
             fitness = self._fitness.calculate_fitness(population)
             selected = self._selection.select(population, fitness)
@@ -61,11 +64,16 @@ class GeneticAlgorithm:
                 "fitness": self._fitness.best_genotype(population)[0],
                 "avg_fitness": fitness.mean(),
             }
+            if 10*i%iterations == 0:
+                print(f"{100*(i+10)/iterations}% done!")
 
         result = self._trace[0]
         for key, value in self._trace.items():
             if value["fitness"] < result["fitness"]:
                 result = value
+
+        print(f"Time elapsed: {time()-t1}")
+
         return result
 
     def best_value_history(self):
