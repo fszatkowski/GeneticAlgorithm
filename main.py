@@ -4,21 +4,16 @@ import numpy as np
 from collections import OrderedDict
 from fitness_function import himmelblau
 
-"""
-TODO:
-why avg fitness is wrong???
-some nice graphs to show results
-"""
-
-h_encoding = OrderedDict({"x": (20, -5, 5), "y": (20, -5, 5)})
+h_encoding = OrderedDict({"x": (32, -5, 5), "y": (32, -5, 5)})
 ga = GeneticAlgorithm(
     h_encoding,
     himmelblau,
-    1000,
-    40,
-    tournament_size=100,
-    crossover_probability=0.8,
-    mutation_probability=0.05,
+    200,
+    tournament_size=2,
+    crossover_probability=0.9,
+    crossover_type="1p1v",
+    mutation_probability=0.01,
+    show_messages=True
 )
 results = ga.run(100)
 
@@ -30,7 +25,8 @@ plt.title("Mean value from all population")
 plt.show()
 
 x, y = ga.best_value_history()
-y = np.log10(y)
-plt.plot(x,y)
+ylog = np.log10(y)
+plt.plot(x,ylog)
 plt.title("Log10(best value)")
 plt.show()
+

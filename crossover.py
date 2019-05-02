@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class OnePoint:
+class OnePointForEveryVariable:
     def __init__(self, variables, probability=0.8):
         self._probability = probability
         self._value_bites = []
@@ -38,6 +38,33 @@ class OnePoint:
                         ),
                         (1, -1),
                     )
+        return crossed_population
+
+
+class OnePointForWholeGenotype:
+    def __init__(self, probability=0.8):
+        self._probability = probability
+
+    def crossover(self, population):
+        crossed_population = population.copy()
+        L = population.shape[1]
+        for n in range(0, population.shape[0] // 2):
+            # determine whether to do crossover
+            if np.random.random() <= self._probability:
+                point = np.random.randint(1, L)
+                # join two parts of genes representing a value coming from two genotypes from selected population
+                crossed_population[2 * n, :] = np.reshape(
+                    np.concatenate(
+                        (population[2 * n, 0:point], population[2 * n + 1, point:L])
+                    ),
+                    (1, -1),
+                )
+                crossed_population[2 * n + 1, :] = np.reshape(
+                    np.concatenate(
+                        (population[2 * n + 1, 0:point], population[2 * n, point:L])
+                    ),
+                    (1, -1),
+                )
         return crossed_population
 
 
