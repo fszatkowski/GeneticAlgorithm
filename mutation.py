@@ -6,12 +6,14 @@ class UniformMutation:
         self._probability = probability
 
     def mutate(self, population):
+        # generate random boolean mask
         mask = np.random.choice(
             (True, False),
             size=population.shape,
             p=[self._probability, 1 - self._probability],
         )
         mutated_population = population.copy()
+        # negate bits for bits where mask is True
         mutated_population[mask] = 1 - mutated_population[mask]
         return mutated_population
 

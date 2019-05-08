@@ -1,32 +1,36 @@
 from genetic_algorithm import GeneticAlgorithm
+import seaborn as sns
 import matplotlib.pyplot as plt
+import pandas as pd
 import numpy as np
 from collections import OrderedDict
-from fitness_function import himmelblau
+from fitness_function import x_square
 
-h_encoding = OrderedDict({"x": (32, -5, 5), "y": (32, -5, 5)})
+h_encoding = OrderedDict({"x": (4, -10, 10)})
 ga = GeneticAlgorithm(
     h_encoding,
-    himmelblau,
-    200,
+    x_square,
+    100,
     tournament_size=2,
-    crossover_probability=0.9,
+    crossover_probability=0.8,
     crossover_type="1p1v",
-    mutation_probability=0.01,
-    show_messages=True
+    mutation_probability=0.001,
+    show_messages=True,
 )
 results = ga.run(100)
 
-print(f"Best fitness: {results['fitness']} for values: {results['values']}")
+print(f"Best fitness: {results['best fitness']} for values: {results['solution']}")
 
-x, y = ga.avg_value_history()
-plt.plot(x, y)
-plt.title("Mean value from all population")
+best, iters = ga.best_solution_history()
+mean, _ = ga.mean_solution_history()
+worst, _ = ga.worst_solution_history()
+
+# best, mean, worst = np.log10(best), np.log10(mean), np.log10(worst)
+
+data = pd.DataFrame(best, index=iters, columns=["best value"])
+data["mean value"] = pd.Series(mean)
+data["worst value"] = pd.Series(worst)
+
+sns.lineplot(data=data)
+plt.legend()
 plt.show()
-
-x, y = ga.best_value_history()
-ylog = np.log10(y)
-plt.plot(x,ylog)
-plt.title("Log10(best value)")
-plt.show()
-
